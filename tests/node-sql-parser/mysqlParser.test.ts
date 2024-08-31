@@ -1,6 +1,6 @@
 import { mysqlParser } from '@/node-sql-parser';
 
-describe('mysqlParserFactory', () => {
+describe('mysqlParserFactory', (    ) => {
   const sql = `
       CREATE TABLE Users (
         userId varchar(12),
