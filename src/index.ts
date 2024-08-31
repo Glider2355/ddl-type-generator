@@ -1,4 +1,4 @@
-import { Parser } from "node-sql-parser";
+import { Parser } from 'node-sql-parser';
 
 const parser = new Parser();
 const sql = `
@@ -9,13 +9,13 @@ CREATE TABLE Users (
   dateOfBirth date COMMENT '生年月日',
   PRIMARY KEY (userId)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザテーブル';
-`
+`;
 const parsedResult = parser.astify(sql, { database: 'MySQL' });
 const tableList = parser.tableList(sql, { database: 'MySQL' })[0];
 const columnList = parser.columnList(sql, { database: 'MySQL' });
 const astString = JSON.stringify(parsedResult, null, 2);
 const astJson = JSON.parse(astString);
-const tableName = astJson
+const tableName = astJson;
 
 // console.log(tableList);
 // console.log(columnList);

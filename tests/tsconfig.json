@@ -1,16 +1,13 @@
 {
-    "compilerOptions": {
-      "target": "ES6",
-      "module": "commonjs",
-      "strict": true,
-      "esModuleInterop": true,
-      "baseUrl": "./",
-      "paths": {
-        "@/*": ["../src/*"]
-      }
-    },
-    "include": [
-      "./**/*.ts",
-
-    ],
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["../src/*"]
+    }
+  },
+  "include": ["./**/*.ts"]
 }
