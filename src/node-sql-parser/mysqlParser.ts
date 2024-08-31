@@ -6,9 +6,6 @@ interface ParserFactory {
   getColumnTypes(): string[];
 }
 
-
-
-
 export function mysqlParser(sql: string): ParserFactory {
   const parser = new Parser();
   const parsedResult = parser.astify(sql, { database: 'MySQL' });
