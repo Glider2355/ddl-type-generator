@@ -1,0 +1,19 @@
+{
+    "name": "ddl-type-generator",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "start": "tsc && node dist/index.js",
+        "test": "jest"
+    },
+    "dependencies": {
+        "node-sql-parser": "^5.3.1"
+    },
+    "devDependencies": {
+        "@types/jest": "^29.5.12",
+        "jest": "^29.7.0",
+        "ts-jest": "^29.2.5",
+        "typescript": "^5.2.2"
+    }
+}
