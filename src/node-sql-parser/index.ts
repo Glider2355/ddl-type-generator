@@ -1,1 +1,1 @@
-export { mysqlParserFactory } from '@/node-sql-parser/mysqlParserFactory';
+export { mysqlParser } from '@/node-sql-parser/mysqlParser';
