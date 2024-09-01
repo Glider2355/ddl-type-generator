@@ -97,11 +97,3 @@ export function mapMySQLTypeToTypeScript(mysqlType: MySQLType): TypeScriptType {
       throw new Error(`Unsupported MySQL type: ${mysqlType}`);
   }
 }
-
-// 使用例
-console.log(mapMySQLTypeToTypeScript('INT')); // 'number'
-console.log(mapMySQLTypeToTypeScript('VARCHAR')); // 'string'
-console.log(mapMySQLTypeToTypeScript('BOOLEAN')); // 'boolean'
-console.log(mapMySQLTypeToTypeScript('DATETIME')); // 'Date'
-console.log(mapMySQLTypeToTypeScript('BLOB')); // 'Buffer'
-console.log(mapMySQLTypeToTypeScript('JSON')); // 'any'
