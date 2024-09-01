@@ -32,25 +32,25 @@ CREATE TABLE \`Users\` (
       columns: [
         {
           name: 'userId',
-          type: 'varchar(12)',
+          type: 'VARCHAR',
           nullable: false,
           default: null,
         },
         {
           name: 'nameKanji',
-          type: 'varchar(12)',
+          type: 'VARCHAR',
           nullable: false,
           default: null,
         },
         {
           name: 'nameKana',
-          type: 'varchar(12)',
+          type: 'VARCHAR',
           nullable: false,
           default: null,
         },
         {
           name: 'dateOfBirth',
-          type: 'varchar(12)',
+          type: 'DATE',
           nullable: false,
           default: null,
         },

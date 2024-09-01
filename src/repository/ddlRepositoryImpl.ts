@@ -13,14 +13,15 @@ export async function ddlRepositoryImpl(): Promise<ddlRepository> {
     async getDDL(tableName): Promise<DDL> {
       const ddlString = await connection.getTableDDL(tableName);
       const parser = mysqlParser(ddlString);
-      const columNames = parser.getColumnNames();
+      const columnNames = parser.getColumnNames();
+      const columnTypes = parser.getColumnTypes();
 
       let columns: Column[] = [];
 
-      columNames.forEach((name, index) => {
+      columnNames.forEach((name, index) => {
         columns.push({
           name: name,
-          type: 'varchar(12)',
+          type: columnTypes[index],
           nullable: false,
           default: null,
         });
