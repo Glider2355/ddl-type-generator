@@ -1,5 +1,5 @@
 import { MySQLType } from '@/types';
-import { Parser } from 'node-sql-parser';
+import { AST, Create, Parser } from 'node-sql-parser';
 
 interface ParserFactory {
   getTableName(): string;
@@ -10,11 +10,21 @@ interface ParserFactory {
 
 export function mysqlParser(sql: string): ParserFactory {
   const parser = new Parser();
-  const parsedResult = parser.astify(sql, { database: 'MySQL' });
+
+  const astArray: AST | AST[] = parser.astify(sql, { database: 'MySQL' });
+  const ast: AST = Array.isArray(astArray) ? astArray[0] : astArray;
+  // `Create` 型であることを確認し、三項演算子で限定する
+  const createAST: Create =
+    ast.type === 'create'
+      ? ast
+      : (() => {
+          throw new Error('ASTはCreate型ではありません。');
+        })();
+
   const tableList = parser.tableList(sql, { database: 'MySQL' });
   const columnList = parser.columnList(sql, { database: 'MySQL' });
 
-  const astString = JSON.stringify(parsedResult, null, 2);
+  const astString = JSON.stringify(ast, null, 2);
   const astJson = JSON.parse(astString);
 
   return {
@@ -40,33 +50,29 @@ export function mysqlParser(sql: string): ParserFactory {
 
     getColumnTypes() {
       let columnTypes: MySQLType[] = [];
-      astJson.forEach((ast: any) => {
-        if (ast.create_definitions) {
-          ast.create_definitions.map((definition: any) => {
-            if (definition.resource === 'column') {
-              columnTypes.push(definition.definition.dataType);
-            }
-          });
-        }
-      });
+      if (createAST.create_definitions) {
+        createAST.create_definitions.map((definition) => {
+          if (definition.resource === 'column') {
+            columnTypes.push(definition.definition.dataType as MySQLType);
+          }
+        });
+      }
       return columnTypes;
     },
 
     getColumnNullableFlags() {
       let columnNullableFlags: boolean[] = [];
-      astJson.forEach((ast: any) => {
-        if (ast.create_definitions) {
-          ast.create_definitions.map((definition: any) => {
-            if (definition.resource === 'column') {
-              if (definition?.nullable?.type === 'not null') {
-                columnNullableFlags.push(false);
-              } else {
-                columnNullableFlags.push(true);
-              }
+      if (createAST.create_definitions) {
+        createAST.create_definitions.map((definition) => {
+          if (definition.resource === 'column') {
+            if (definition?.nullable?.type === 'not null') {
+              columnNullableFlags.push(false);
+            } else {
+              columnNullableFlags.push(true);
             }
-          });
-        }
-      });
+          }
+        });
+      }
       return columnNullableFlags;
     },
   };
