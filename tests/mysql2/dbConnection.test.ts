@@ -1,6 +1,7 @@
 import { dbConnection } from '@/mysql2';
 
 describe('getTableDDL', () => {
+  // sample-dbの設定
   const testDBConfig = {
     host: 'localhost',
     user: 'user',
