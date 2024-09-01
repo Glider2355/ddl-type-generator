@@ -1,3 +1,5 @@
+import { MySQLType } from './MySQLType';
+
 export type DDL = {
   tableName: string;
   columns: Column[];
@@ -5,6 +7,6 @@ export type DDL = {
 
 export type Column = {
   name: string;
-  type: string;
+  type: MySQLType;
   nullable: boolean;
 };

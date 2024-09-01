@@ -1,5 +1,5 @@
 import { typeConverter } from '@/converter';
-import { DDL } from '@/types';
+import { DDL, DDLType } from '@/types';
 
 describe('typeConverter', () => {
   it('DDLを元にtypeをstringで返す', () => {
@@ -29,6 +29,15 @@ describe('typeConverter', () => {
       ],
     };
     const actual = typeConverter(ddl);
-    expect(actual).toBe('a');
+    const expected: DDLType = {
+      typeName: 'Users',
+      typeElements: [
+        'userId: string',
+        'nameKanji?: string | null',
+        'nameKana?: string | null',
+        'dateOfBirth?: Date | null',
+      ],
+    };
+    expect(actual).toStrictEqual(expected);
   });
 });
