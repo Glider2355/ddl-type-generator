@@ -1,11 +1,15 @@
 import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 // データベース接続情報の設定
 const connectionConfig = {
-  host: 'localhost', // MySQLサーバのホスト名
-  user: 'your_username', // MySQLユーザー名
-  password: 'your_password', // MySQLユーザーパスワード
-  database: 'your_database_name', // 対象データベース名
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3306,
 };
 
 // DDLを取得する関数
