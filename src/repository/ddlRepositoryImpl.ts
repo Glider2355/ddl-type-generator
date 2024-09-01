@@ -15,6 +15,7 @@ export async function ddlRepositoryImpl(): Promise<ddlRepository> {
       const parser = mysqlParser(ddlString);
       const columnNames = parser.getColumnNames();
       const columnTypes = parser.getColumnTypes();
+      const columnNullableFlags = parser.getColumnNullableFlags();
 
       let columns: Column[] = [];
 
@@ -22,7 +23,7 @@ export async function ddlRepositoryImpl(): Promise<ddlRepository> {
         columns.push({
           name: name,
           type: columnTypes[index],
-          nullable: false,
+          nullable: columnNullableFlags[index],
           default: null,
         });
       });

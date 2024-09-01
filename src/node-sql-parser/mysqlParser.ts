@@ -52,21 +52,21 @@ export function mysqlParser(sql: string): ParserFactory {
     },
 
     getColumnNullableFlags() {
-      let columnTypes: boolean[] = [];
+      let columnNullableFlags: boolean[] = [];
       astJson.forEach((ast: any) => {
         if (ast.create_definitions) {
           ast.create_definitions.map((definition: any) => {
             if (definition.resource === 'column') {
               if (definition?.nullable?.type === 'not null') {
-                columnTypes.push(false);
+                columnNullableFlags.push(false);
               } else {
-                columnTypes.push(true);
+                columnNullableFlags.push(true);
               }
             }
           });
         }
       });
-      return columnTypes;
+      return columnNullableFlags;
     },
   };
 }
