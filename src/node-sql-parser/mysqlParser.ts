@@ -1,9 +1,10 @@
+import { MySQLType } from '@/types';
 import { Parser } from 'node-sql-parser';
 
 interface ParserFactory {
   getTableName(): string;
   getColumnNames(): string[];
-  getColumnTypes(): string[];
+  getColumnTypes(): MySQLType[];
   getColumnNullableFlags(): boolean[];
 }
 
@@ -38,7 +39,7 @@ export function mysqlParser(sql: string): ParserFactory {
     },
 
     getColumnTypes() {
-      let columnTypes: string[] = [];
+      let columnTypes: MySQLType[] = [];
       astJson.forEach((ast: any) => {
         if (ast.create_definitions) {
           ast.create_definitions.map((definition: any) => {
