@@ -4,6 +4,7 @@ interface ParserFactory {
   getTableName(): string;
   getColumnNames(): string[];
   getColumnTypes(): string[];
+  getColumnNullableFlags(): boolean[];
 }
 
 export function mysqlParser(sql: string): ParserFactory {
@@ -20,6 +21,7 @@ export function mysqlParser(sql: string): ParserFactory {
       const tableName = tableList[0].replace(/.*::(.*)/, '$1');
       return tableName;
     },
+
     getColumnNames() {
       const uniqueColumns = new Set<string>();
 
@@ -34,6 +36,7 @@ export function mysqlParser(sql: string): ParserFactory {
       });
       return Array.from(uniqueColumns);
     },
+
     getColumnTypes() {
       let columnTypes: string[] = [];
       astJson.forEach((ast: any) => {
@@ -41,6 +44,24 @@ export function mysqlParser(sql: string): ParserFactory {
           ast.create_definitions.map((definition: any) => {
             if (definition.resource === 'column') {
               columnTypes.push(definition.definition.dataType);
+            }
+          });
+        }
+      });
+      return columnTypes;
+    },
+
+    getColumnNullableFlags() {
+      let columnTypes: boolean[] = [];
+      astJson.forEach((ast: any) => {
+        if (ast.create_definitions) {
+          ast.create_definitions.map((definition: any) => {
+            if (definition.resource === 'column') {
+              if (definition?.nullable?.type === 'not null') {
+                columnTypes.push(false);
+              } else {
+                columnTypes.push(true);
+              }
             }
           });
         }
