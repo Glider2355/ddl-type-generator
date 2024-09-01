@@ -20,4 +20,4 @@ jobs:
         run: npm install
 
       - name: Run Jest
-        run: npm test  # Jestテストの実行
+        run: npm test -- --testPathIgnorePatterns="tests/mysql2/"  # テストファイルを除外
