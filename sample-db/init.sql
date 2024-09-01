@@ -1,6 +1,8 @@
-CREATE TABLE User (
-  id INT AUTO_INCREMENT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+DROP TABLE IF EXISTS Users;
+CREATE TABLE Users (
+  userId varchar(12),
+  nameKanji varchar(34) COMMENT '名前(漢字)',
+  nameKana varchar(50) COMMENT '名前(カナ)',
+  dateOfBirth date COMMENT '生年月日',
+  PRIMARY KEY (userId)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='ユーザテーブル';
