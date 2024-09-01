@@ -1,1 +1,1 @@
-export { dbConnection } from '@/mysql2/getTableDDL';
+export { dbConnection } from '@/mysql2/dbConnenction';
