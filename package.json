@@ -1,5 +1,5 @@
 {
-  "name": "dd-type-generator",
+  "name": "ddl-type-generator",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
