@@ -3,7 +3,7 @@ export type DDL = {
   columns: Column[];
 };
 
-type Column = {
+export type Column = {
   name: string;
   type: string;
   nullable: boolean;

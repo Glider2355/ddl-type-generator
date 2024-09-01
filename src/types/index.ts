@@ -1,1 +1,1 @@
-export { DDL } from '@/types/DDL';
+export { DDL, Column } from '@/types/DDL';

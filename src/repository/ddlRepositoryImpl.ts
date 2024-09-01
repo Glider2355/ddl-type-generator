@@ -1,32 +1,30 @@
-import { DDL } from '@/types';
+import { dbConnection } from '@/mysql2';
+import { mysqlParser } from '@/node-sql-parser';
+import { Column, DDL } from '@/types';
 
 interface ddlRepository {
-  getDDL(tableName: string): DDL;
+  getDDL(tableName: string): Promise<DDL>;
 }
 
-export function ddlRepositoryImpl(): ddlRepository {
+export async function ddlRepositoryImpl(): Promise<ddlRepository> {
+  const connection = await dbConnection();
+
   return {
-    getDDL(tableName): DDL {
-      const columns = [
-        {
-          name: 'id',
-          type: 'int',
+    async getDDL(tableName): Promise<DDL> {
+      const ddlString = await connection.getTableDDL(tableName);
+      const parser = mysqlParser(ddlString);
+      const columNames = parser.getColumnNames();
+
+      let columns: Column[] = [];
+
+      columNames.forEach((name, index) => {
+        columns.push({
+          name: name,
+          type: 'varchar(12)',
           nullable: false,
           default: null,
-        },
-        {
-          name: 'name',
-          type: 'varchar(255)',
-          nullable: false,
-          default: null,
-        },
-        {
-          name: 'age',
-          type: 'int',
-          nullable: true,
-          default: null,
-        },
-      ];
+        });
+      });
 
       return { tableName, columns };
     },
