@@ -8,8 +8,7 @@
     "test": "jest",
     "format": "prettier --write \"src/**/*.{js,ts,tsx,json,css,md}\" \"tests/**/*.{js,ts,tsx,json,css,md}\"",
     "format:check": "prettier --check \"src/**/*.{js,ts,tsx,json,css,md}\"",
-    "prepare": "husky",
-    "postmerge": "(git diff 'HEAD@{1}' --name-only | grep package.json > /dev/null) && npm i || :"
+    "prepare": "husky"
   },
   "dependencies": {
     "dotenv": "^16.4.5",
