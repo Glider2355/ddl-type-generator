@@ -24,7 +24,6 @@ export async function ddlRepositoryImpl(): Promise<ddlRepository> {
           name: name,
           type: columnTypes[index],
           nullable: columnNullableFlags[index],
-          default: null,
         });
       });
 

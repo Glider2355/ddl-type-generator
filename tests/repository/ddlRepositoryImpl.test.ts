@@ -34,25 +34,21 @@ CREATE TABLE \`Users\` (
           name: 'userId',
           type: 'VARCHAR',
           nullable: false,
-          default: null,
         },
         {
           name: 'nameKanji',
           type: 'VARCHAR',
           nullable: true,
-          default: null,
         },
         {
           name: 'nameKana',
           type: 'VARCHAR',
           nullable: true,
-          default: null,
         },
         {
           name: 'dateOfBirth',
           type: 'DATE',
           nullable: true,
-          default: null,
         },
       ],
     };
