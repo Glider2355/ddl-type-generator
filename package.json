@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && tsc",
+    "build": "npm install && webpack",
     "start": "tsc && node dist/index.js",
     "test": "jest",
     "format": "prettier --write \"src/**/*.{js,ts,tsx,json,css,md}\" \"tests/**/*.{js,ts,tsx,json,css,md}\"",
@@ -22,7 +22,10 @@
     "lint-staged": "^15.2.9",
     "prettier": "^3.3.3",
     "ts-jest": "^29.2.5",
-    "typescript": "^5.2.2"
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.2.2",
+    "webpack": "^5.94.0",
+    "webpack-cli": "^5.1.4"
   },
   "lint-staged": {
     "*.{js,ts,tsx,json,css,md}": "prettier --write"
