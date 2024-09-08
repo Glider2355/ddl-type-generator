@@ -8,4 +8,5 @@ export async function generateTypeFile(tableName: string) {
   const ddl: DDL = await repository.getDDL(tableName);
   const type: DDLType = typeConverter(ddl);
   const typeString: string = typeStringGenerator(type);
+  return typeString;
 }
