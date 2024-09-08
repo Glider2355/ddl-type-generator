@@ -1,1 +1,1 @@
-export { typeGenerator } from './typeGenerator';
+export { typeStringGenerator } from './typeStringGenerator';
