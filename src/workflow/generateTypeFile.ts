@@ -1,12 +1,12 @@
 import { typeConverter } from '@/converter';
-import { typeStringGenerator } from '@/generator';
+import { tsFileGenerator, typeStringGenerator } from '@/generator';
 import { ddlRepositoryImpl } from '@/repository';
 import { DDL, DDLType } from '@/types';
 
-export async function generateTypeFile(tableName: string) {
+export async function generateTypeFile(tableName: string): Promise<void> {
   const repository = await ddlRepositoryImpl();
   const ddl: DDL = await repository.getDDL(tableName);
   const type: DDLType = typeConverter(ddl);
   const typeString: string = typeStringGenerator(type);
-  return typeString;
+  tsFileGenerator(type.typeName, typeString, 'gen');
 }
