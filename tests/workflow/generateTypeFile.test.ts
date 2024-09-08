@@ -10,17 +10,18 @@ jest.mock('@/mysql2', () => ({
 
 describe('generateTypeFile', () => {
   const testDirectory = './gen';
+  const testFilePath = './gen/UserTestData.ts';
 
-  afterEach(() => {
+  afterEach(async () => {
     // テスト後に生成されたファイルをクリーンアップ
-    if (fs.existsSync(testDirectory)) {
-      fs.rmSync(testDirectory, { recursive: true, force: true });
+    if (fs.existsSync(testFilePath)) {
+      await fs.promises.rm(testFilePath, { recursive: true, force: true });
     }
   });
   // モックされたgetTableDDLの返り値を定義
   const mockConnection = {
     getTableDDL: jest.fn().mockResolvedValue(`
-CREATE TABLE \`Users\` (
+CREATE TABLE \`user_test_data\` (
 \`userId\` varchar(12) NOT NULL,
 \`nameKanji\` varchar(34) DEFAULT NULL COMMENT '名前(漢字)',
 \`nameKana\` varchar(50) DEFAULT NULL COMMENT '名前(カナ)',
@@ -33,11 +34,11 @@ PRIMARY KEY (\`userId\`)
   dbConnection.mockResolvedValue(mockConnection);
 
   it('DDLを元にTypeをtsファイルで生成する', async () => {
-    const actual = await generateTypeFile('Users');
-    const filePath = path.join(testDirectory, `Users.ts`);
+    const actual = await generateTypeFile('user_test_data');
+    const filePath = path.join(testDirectory, `UserTestData.ts`);
     const fileExists = fs.existsSync(filePath);
 
-    const expected = `export type Users = {
+    const expected = `export type UserTestData = {
   userId: string,
   nameKanji?: string | null,
   nameKana?: string | null,

@@ -8,3 +8,5 @@ generate:
 
 clean:
 	rm -rf dist && rm -rf gen
+%:
+	@:

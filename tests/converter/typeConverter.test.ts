@@ -4,7 +4,7 @@ import { DDL, DDLType } from '@/types';
 describe('typeConverter', () => {
   it('DDLを元にtypeをstringで返す', () => {
     const ddl: DDL = {
-      tableName: 'Users',
+      tableName: 'user_data',
       columns: [
         {
           name: 'userId',
@@ -30,7 +30,7 @@ describe('typeConverter', () => {
     };
     const actual = typeConverter(ddl);
     const expected: DDLType = {
-      typeName: 'Users',
+      typeName: 'UserData',
       typeElements: [
         'userId: string',
         'nameKanji?: string | null',

@@ -1,8 +1,10 @@
 import { Column, DDL, DDLType } from '@/types';
 import { mapMySQLTypeToTypeScript } from './mapMySQLTypeToTypeScript';
+import { camelCaseConverter } from './camelCaseConverter';
 
 export function typeConverter(ddl: DDL): DDLType {
-  const typeName = ddl.tableName;
+  const converter = camelCaseConverter();
+  const typeName = converter.upperCamelCase(ddl.tableName);
   const typeElemens = createTypeElementsString(ddl.columns);
 
   const type: DDLType = {
