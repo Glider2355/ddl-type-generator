@@ -40,6 +40,8 @@ export async function dbConnection(
       } catch (error) {
         console.error(`Error fetching DDL for table ${tableName}:`, error);
         throw error;
+      } finally {
+        this.closeConnection();
       }
     },
 
