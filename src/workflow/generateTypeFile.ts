@@ -10,3 +10,9 @@ export async function generateTypeFile(tableName: string): Promise<void> {
   const typeString: string = typeStringGenerator(type);
   tsFileGenerator(type.typeName, typeString, 'gen');
 }
+
+// コマンドラインからの呼び出し
+if (require.main === module) {
+  const tableName = process.argv[2];
+  generateTypeFile(tableName);
+}
