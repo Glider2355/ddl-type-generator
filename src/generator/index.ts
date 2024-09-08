@@ -1,2 +1,2 @@
 export { typeStringGenerator } from './typeStringGenerator';
-export { typeFileGenerator } from './typeFileGenerator';
+export { tsFileGenerator } from './tsFileGenerator';

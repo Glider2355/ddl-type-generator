@@ -1,6 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
-import { typeFileGenerator } from '@/generator';
+import { tsFileGenerator } from '@/generator';
 
 describe('typeFileGenerator', () => {
   const testDirectory = './test-generated';
@@ -17,7 +17,7 @@ describe('typeFileGenerator', () => {
   it('typeのtsファイルが正しく生成される', () => {
     const filePath = path.join(testDirectory, `${testFileName}.ts`);
 
-    typeFileGenerator(testDirectory);
+    tsFileGenerator(testFileName, testContent, testDirectory);
     const fileExists = fs.existsSync(filePath);
     expect(fileExists).toBe(true);
 
