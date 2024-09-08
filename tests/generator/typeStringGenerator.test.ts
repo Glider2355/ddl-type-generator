@@ -6,7 +6,7 @@ jest.mock('@/mysql2', () => ({
   dbConnection: jest.fn(),
 }));
 
-describe('typeFileGenerator', () => {
+describe('typeStringGenerator', () => {
   it('typeを生成する', async () => {
     // モックされたgetTableDDLの返り値を定義
     const mockConnection = {
