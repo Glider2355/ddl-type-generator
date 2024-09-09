@@ -73,16 +73,22 @@ export function mysqlParser(sql: string): ParserFactory {
       return columnNullableFlags;
     },
 
-    // 新しいメソッドを追加
     getColumnDefaults() {
-      let columnDefaults: (string | null)[] = [];
+      let columnDefaults: (any | null)[] = [];
       if (createAST.create_definitions) {
         createAST.create_definitions.forEach((definition) => {
           if (definition.resource === 'column') {
-            if (definition.default_val) {
-              columnDefaults.push(definition.default_val.value.value);
+            const defaultVal = definition.default_val;
+            if (defaultVal) {
+              if (defaultVal.value.type === 'null') {
+                columnDefaults.push(defaultVal.value.value);
+              } else if (defaultVal.value.type === 'function') {
+                columnDefaults.push(defaultVal.value.name.name[0].value);
+              } else if (defaultVal.value.value !== undefined) {
+                columnDefaults.push(defaultVal.value.value);
+              }
             } else {
-              columnDefaults.push(null); // デフォルト値がない場合は `null`
+              columnDefaults.push(undefined);
             }
           }
         });
