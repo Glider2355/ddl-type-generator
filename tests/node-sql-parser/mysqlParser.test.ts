@@ -33,4 +33,10 @@ CREATE TABLE \`Users\` (
     const expected = [false, true, true, true];
     expect(actual).toStrictEqual(expected);
   });
+
+  it('カラムのデフォルト値を取得する', () => {
+    const actual = parserFactory.getColumnDefaults();
+    const expected = [null, null, null, null];
+    expect(actual).toStrictEqual(expected);
+  });
 });
