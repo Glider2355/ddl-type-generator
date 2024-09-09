@@ -1,5 +1,3 @@
-// stringUtils.test.ts
-
 import { camelCaseConverter } from '@/converter';
 
 describe('camelCaseConverter', () => {
